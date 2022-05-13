@@ -56,6 +56,9 @@ void append(Node** root, int vl) {
     current->next = new_node;
 }
 
+/*
+    Function to free memory iteritavely
+*/
 void dalloc(Node** root) {
 
     Node* current = *root;
@@ -70,6 +73,27 @@ void dalloc(Node** root) {
         free(auxiliary);
     }
     // set root node to NULL
+    *root = NULL;
+}
+
+/*
+    Function to free memory recursively
+*/
+void rdalloc (Node** root) {
+
+    Node *current_node = *root;
+    // auxiliary node stores the current node
+    Node* auxiliary_node = current_node;
+    // shift and increment the current pointer
+    current_node = current_node->next;
+    // free the auxiliary node
+    free(auxiliary_node);
+
+    // call function recursively until the end of the list
+    if(current_node != NULL)
+        rdalloc(&current_node);
+    
+    // set root to NULL
     *root = NULL;
 }
 
